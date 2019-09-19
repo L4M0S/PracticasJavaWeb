@@ -14,13 +14,13 @@
     <body>
         <form action="datos" method="post">
             cuadrado:
-            <input type="radio" name="cuadrado">
+            <input type="radio" name="figura" value="cuadrado">
             <br/>
             rectangulo:
-            <input type="radio" name="rectangulo">
+            <input type="radio" name="figura" value="rectangulo">
             <br/>
             triangulo:
-            <input type="radio" name="triangulo">
+            <input type="radio" name="figura" value="triangulo">
             <br/><br/>
             area:
             <input type="checkbox" name="area">
