@@ -7,17 +7,20 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <%@ page import="datos.dao" %>
+       
+        <%@ page import="datos.bean" import="datos.dao" import="datos.imprimir"%>
         <% 
+            //bean articulo=new bean();
+            
             Double CantidadMotor=Double.parseDouble(request.getParameter("CantidadMotor"));
             Double CantidadAceite=Double.parseDouble(request.getParameter("CantidadAceite"));
             Double CantidadFiltro=Double.parseDouble(request.getParameter("CantidadFiltro"));
+            Double subTotal=(CantidadMotor*50)+(CantidadAceite*30)+(CantidadFiltro*40);
+            Double IVA= (CantidadMotor*50)+(CantidadAceite*30)+(CantidadFiltro*40)*0.16;
+            Double Total=subTotal+IVA;
             
-            dao datos= new dao();
             
-            datos.setCantidadMotor(CantidadMotor);
-            datos.setCantidadAceite(CantidadAceite);
-            datos.setCantidadFiltro(CantidadFiltro);
+           
             
             out.print("Motores: "+CantidadMotor + " $"+ CantidadMotor*50);
             out.print("<br>");
@@ -26,11 +29,11 @@
             out.print("Filtros: "+CantidadFiltro + " $"+ CantidadFiltro*40);
             out.print("<br><br>");
             
-            out.print("subtotal: "+ datos.getSubTotal());
+            out.print("subtotal: "+ subTotal);
             out.print("<br>");
-            out.print("IVA: "+ datos.getSubTotal()*0.16);
+            out.print("IVA: "+IVA) ;
             out.print("<br><br>");
-            out.print("total: "+ datos.getTotal());
+            out.print("total: "+ Total);
             out.print("<br>");
          %>
     </body>

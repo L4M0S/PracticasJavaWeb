@@ -7,7 +7,12 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <form action="imprimir.jsp" method="post">
+        
+        <jsp:useBean id="Bean" class="datos.bean" scope="session">
+        <%-- intialize bean properties --%>
+        
+    </jsp:useBean>
+        <form action="imprimir" method="post">
             
             <table border="5px" bordercolor=“#000000”>
                 <tr>
@@ -40,3 +45,75 @@
         </form>
     </body>
 </html>
+
+
+<table cellspacing="3" cellpadding="3" border="1">
+                    <tr style="font-weight: bold; background-color: cyan; text-align: center;">
+                        <td>CODIGO</td>
+                        <td>PRODUCTO</td>
+                        <td>PRECIO</td>
+                        <td>CANTIDAD</td>
+                    </tr>
+                    <tr>
+                        <td><label><input style="display: none;" name="codM" value="111">111</label></td>
+                        <td><label><input style="display: none;" name="proM" value="Motor">Motor</label></td>
+                        <td><label><input style="display: none;" name="preM" value="50">50</label></td>
+                        <td><input type="number" name="canM" min="0"></td>
+                    </tr>
+                    <tr>
+                        <td><label><input style="display: none;"  name="codA" value="222">222</label></td>
+                        <td><label><input style="display: none;" name="proA" value="Aceite">Aceite</label></td>
+                        <td><label><input style="display: none;" name="preA" value="30">30</label></td>
+                        <td><input name="canA" type="number" min="0"></td>
+                    </tr>
+                    <tr>
+                        <td><label><input style="display: none;"  name="codF" value="333">333</label></td>
+                        <td><label><input style="display: none;" name="proF" value="Filtro de aire">Filtro de aire</label></td>
+                        <td><label><input style="display: none;" name="preF" value="40">40</label></td>
+                        <td><input name="canF" type="number" min="0"></td>
+                    </tr>
+                </table>
+
+<h1>Total a pagar</h1>
+        <table cellspacing="3" cellpadding="3" border="1">
+            <tr style="font-weight: bold; background-color: cyan; text-align: center;">
+                <td>CODIGO</td>
+                <td>PRODUCTO</td>
+                <td>PRECIO</td>
+            </tr>
+            <%
+                ArrayList<ProductoBEAN> list = (ArrayList<ProductoBEAN>) request.getAttribute("lista_productos");
+                float total = 0;
+                for(ProductoBEAN producto : list) {
+            %>
+            <tr>
+            <%
+                if(producto.getCantidad()>0){
+                    %>
+                    <td>
+                    <%
+                    out.println(producto.getCodigo());
+                    %>
+                    </td>
+                    <td>
+                    <%
+                    out.println(producto.getProducto());
+                    %>
+                    </td>
+                    <td>
+                    <%
+                    total += producto.getPrecio()*1.16*producto.getCantidad();
+                    out.println((float)(producto.getPrecio()*1.16*producto.getCantidad()));
+                    out.println("</td>");
+                }
+                    %>
+            </tr>
+            <%
+                }
+            %>
+            <tr>
+                <td colspan="2">Total: </td>
+                <td><%out.println(total);%></td>
+            </tr>
+        </table>
+    </body>
