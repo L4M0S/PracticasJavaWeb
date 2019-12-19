@@ -30,6 +30,16 @@ import modelo.producto;
         }
     }
     
+    public void addCompra(String Nombre,String Precio){
+        String query = "insert into compra values(NULL ,'" + Nombre+ "','" + Precio + "')";
+        try {
+            Statement stmt = conector.createStatement();
+            stmt.executeUpdate(query);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    
     public void removeArticulo(String codigo) {
         String query = "delete from articulos where codigo = " + Integer.parseInt(codigo) + " ";
         try {

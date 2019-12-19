@@ -22,6 +22,7 @@ public class controlador extends HttpServlet {
     private static final long serialVersionUID = 1L;
     private static String insert_or_edit = "/producto.jsp";
     private static String list_Articulos = "/tabla.jsp";
+    private static String list_Comprar = "/comprar.jsp";
     private dao productodao;
 
     public controlador() {
@@ -49,7 +50,27 @@ public class controlador extends HttpServlet {
                 e.printStackTrace();
             }
             // if the user is trying to edit a person
-        } else if (action.equalsIgnoreCase("edit")) {
+        } 
+        else if (action.equalsIgnoreCase("comprar")) {
+			// the other page is sending the person id, so we can get here and
+            // call the remove method
+            String nombre = request.getParameter("nombre");
+            String precio = request.getParameter("precio");
+            // we remove the person from the database
+            productodao.addCompra(nombre,precio);
+			// set the forward string to list and put all persons in request
+            // attribute so we can use them inside the other page
+            forward = list_Articulos;
+            try {
+                request.setAttribute("articulos", productodao.getArticulos());
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            // if the user is trying to edit a person
+        }
+        
+
+        else if (action.equalsIgnoreCase("edit")) {
 
             forward = insert_or_edit;
             String codigo = request.getParameter("codigo");
